@@ -201,5 +201,5 @@ tol = 1e-5
 dim=20
 t=4
 H,vec=get_H(dim,np.float64)
-
-a,x1=expm_multiply(t*H, vec, theta_mm[1],tol)
+for i in range(100):
+    a,x1=expm_multiply(t*H, vec, theta_mm[1],tol)
