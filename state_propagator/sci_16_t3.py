@@ -199,7 +199,7 @@ for j,_theta in enumerate(theta_m):
     theta_mm.append(a)
 tol = 2**-53
 dim=20
-t=5
+t=3
 H,vec=get_H(dim,np.float64)
-for i in range(1000):
-    a,x1=expm_multiply(t*H, vec, theta_mm[4],tol)
+
+a,x1=expm_multiply(t*H, vec, theta_mm[4],tol)
