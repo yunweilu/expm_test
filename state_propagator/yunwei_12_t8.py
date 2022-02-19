@@ -201,5 +201,5 @@ tol = 1e-12
 dim=20
 t=8
 H,vec=get_H(dim,np.float64)
-for i in range(100):
+for i in range(500):
     a,x1=_expm_multiply_simple_core_global(t*H, vec, tol=tol)

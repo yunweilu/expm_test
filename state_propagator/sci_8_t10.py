@@ -202,5 +202,5 @@ dim=20
 t=10
 H,vec=get_H(dim,np.float64)
 
-for i in range(100):
+for i in range(500):
     a,x1=expm_multiply(t*H, vec, theta_mm[2],tol)
