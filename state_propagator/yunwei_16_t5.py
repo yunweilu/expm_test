@@ -17,7 +17,7 @@ def get_s(A,b,tol):
     else:
         a=_exact_1_norm(A)
         while(1):
-            norm_A = _exact_inf_norm(A)/s
+            norm_A = a/s
             max_term_notation=np.floor(norm_A)
             max_term=1
             for i in range(1,np.int(max_term_notation)):
