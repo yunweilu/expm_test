@@ -34,6 +34,7 @@ def _exact_1_norm(A):
         return max(abs(A).sum(axis=0).flat)
     else:
         return np.linalg.norm(A, 1)
+
 def _expm_multiply_simple_core_global(A, B, tol=None):
     """
     A helper function.
