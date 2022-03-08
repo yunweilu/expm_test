@@ -14,7 +14,7 @@ def get_annihilation_operator(size,tp):
 def get_s(A,b,tol):
     s=1
     if A.dtype==np.complex256:
-        s=np.ceil(_exact_1_norm(A))
+        a=_exact_inf_norm(A)
     else:
         a=_exact_inf_norm(A)
         while(1):

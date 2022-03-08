@@ -142,7 +142,6 @@ def expm_multiply(A, B, theta, tol, start=None, stop=None, num=None, endpoint=No
     else:
         X, status = _expm_multiply_interval(A, B, start, stop, num, endpoint)
     return X, total_m
-
 def _expm_multiply_simple(A, B, tol,  t=1.0, balance=False):
     """
     Compute the action of the matrix exponential at a single time point.
