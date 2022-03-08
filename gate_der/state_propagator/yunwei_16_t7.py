@@ -16,6 +16,7 @@ def get_s(A,b,tol):
     if A.dtype==np.complex256:
         s=np.ceil(_exact_1_norm(A))
     else:
+        s = np.ceil(_exact_1_norm(A))
         while(1):
             norm_A = a/s
             max_term_notation=np.floor(norm_A)
@@ -209,6 +210,6 @@ for j,_theta in enumerate(theta_m):
 tol = 1e-16
 dim=7
 t=7
-H,vec=get_auxiliary(dim,np.float64,1)
+H,vec=get_auxiliary(dim,np.float64,t)
 for i in range(500):
-    a,x1=_expm_multiply_simple_core_global(t*H, vec, tol=tol)
+    a,x1=_expm_multiply_simple_core_global(H, vec, tol=tol)

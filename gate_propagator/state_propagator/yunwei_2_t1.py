@@ -16,6 +16,7 @@ def get_s(A,b,tol):
     if A.dtype==np.complex256:
         s=np.ceil(_exact_1_norm(A))
     else:
+        a=_exact_inf_norm(A)
         while(1):
             norm_A = a/s
             max_term_notation=np.floor(norm_A)

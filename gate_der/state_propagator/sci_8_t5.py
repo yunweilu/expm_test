@@ -209,6 +209,6 @@ for j,_theta in enumerate(theta_m):
 tol = 2**-24
 dim=7
 t=5
-H,vec=get_auxiliary(dim,np.float64,1)
+H,vec=get_auxiliary(dim,np.float64,t)
 for i in range(500):
-    a,x1=expm_multiply(t*H, vec, theta_mm[2],tol)
+    a,x1=expm_multiply(H, vec, theta_mm[2],tol)

@@ -201,7 +201,7 @@ for j,_theta in enumerate(theta_m):
 tol = 2**-24
 dim=20
 t=9
-H,vec=get_auxiliary(dim,np.float64,1)
+H,vec=get_auxiliary(dim,np.float64,t)
 
 for i in range(500):
-    a,x1=_expm_multiply_simple_core_global(t*H, vec, tol=tol)
+    a,x1=_expm_multiply_simple_core_global(H, vec, tol=tol)
