@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib.lines import Line2D
-
+from .expm_mul import expm_multiply
 from scipy.sparse.linalg import eigs,norm
 from scipy.special import factorial
 import matplotlib.pyplot as plt

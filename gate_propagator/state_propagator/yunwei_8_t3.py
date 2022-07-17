@@ -213,3 +213,4 @@ t=3
 H,vec=get_H(dim,np.float64)
 for i in range(500):
     a,x1=_expm_multiply_simple_core_global(t*H, vec, tol=tol)
+print(_exact_inf_norm(H))
