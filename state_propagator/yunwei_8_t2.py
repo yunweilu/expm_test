@@ -296,7 +296,8 @@ tol = 1e-8
 dim=20
 t=2
 H,vec=get_H(dim,np.float64)
+@profile
 def run():
-    for i in range(1):
+    for i in range(500):
         a,x1=expm_yunwei(t*H,vec,5,tol)
 run()
