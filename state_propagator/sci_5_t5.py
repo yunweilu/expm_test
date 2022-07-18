@@ -198,8 +198,8 @@ for j,_theta in enumerate(theta_m):
         a[5*(i+1)] = theta
     theta_mm.append(a)
 tol = 1e-5
-dim=20
-t=5
+dim=200
+t=3
 H,vec=get_H(dim,np.float64)
 for i in range(500):
     a,x1=expm_multiply(t*H, vec, theta_mm[1],tol)

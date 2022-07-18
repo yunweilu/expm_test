@@ -142,6 +142,7 @@ def max_row_number(sparse_matrix):
             indice=row_indice[i]
             indice_count=1
     return max_count
+@profile
 def expm_yunwei(A, B,d, tol=None):
     """
     A helper function.
@@ -293,8 +294,8 @@ for j,_theta in enumerate(theta_m):
         a[5*(i+1)] = theta
     theta_mm.append(a)
 tol = 1e-5
-dim=20
-t=2
+dim=200
+t=1.5
 H,vec=get_H(dim,np.float64)
 def run():
     for i in range(500):
