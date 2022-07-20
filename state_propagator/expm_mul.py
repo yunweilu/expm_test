@@ -52,7 +52,7 @@ def _ident_like(A):
     else:
         return np.eye(A.shape[0], A.shape[1], dtype=A.dtype)
 
-@profile
+
 def expm_multiply(A, B, theta, tol, start=None, stop=None, num=None, endpoint=None):
     """
     Compute the action of the matrix exponential of A on B.
@@ -142,7 +142,7 @@ def expm_multiply(A, B, theta, tol, start=None, stop=None, num=None, endpoint=No
     else:
         X, status = _expm_multiply_interval(A, B, start, stop, num, endpoint)
     return X, total_m
-@profile
+
 def _expm_multiply_simple(A, B, tol,  t=1.0, balance=False):
     """
     Compute the action of the matrix exponential at a single time point.
@@ -192,7 +192,7 @@ def _expm_multiply_simple(A, B, tol,  t=1.0, balance=False):
         norm_info = LazyOperatorNormInfo(t*A, A_1_norm=t*A_1_norm, ell=ell)
         m_star, s = _fragment_3_1(norm_info, n0, tol, ell=ell)
     return _expm_multiply_simple_core(A, B, t, mu, m_star, s, tol, balance)
-@profile
+
 def _expm_multiply_simple_core(A, B, t, mu, m_star, s, tol=None, balance=False):
     """
     A helper function.
