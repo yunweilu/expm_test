@@ -141,7 +141,7 @@ def max_row_number(sparse_matrix):
             indice=row_indice[i]
             indice_count=1
     return max_count
-
+@profile
 def expm_yunwei(A, B,d, tol=None):
     """
     A helper function.

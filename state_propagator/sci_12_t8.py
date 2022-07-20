@@ -197,7 +197,7 @@ for j,_theta in enumerate(theta_m):
     for i, theta in enumerate(_theta):
         a[5*(i+1)] = theta
     theta_mm.append(a)
-tol = 1e-12
+tol = 1e-11
 dim=20
 t=8
 H,vec=get_H(dim,np.float64)

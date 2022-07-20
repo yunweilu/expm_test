@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib.lines import Line2D
-from expm_mul import expm_multiply
+
 from scipy.sparse.linalg import eigs,norm
 from scipy.special import factorial
 import matplotlib.pyplot as plt
@@ -74,11 +74,14 @@ def residue_norm(m,norm_B,term):
         if term<1e-15:
             break
     return R_m
+
 def choose_ms(norm_A,d,tol):
     no_solution=True
     for i in range(1,int(np.floor(norm_A))):
+        if no_solution == False:
+            break
         norm_B = norm_A / i
-        l=int(np.ceil(norm_B))
+        l=int(np.floor(norm_B))
         beta_factor,last_term=beta(norm_B,l,d)
         lower_bound = i*(beta_factor)
         if lower_bound>tol:
@@ -87,28 +90,33 @@ def choose_ms(norm_A,d,tol):
         m_pass_lowbound=False
         for j in range(1,100):
             if j>l:
-                beta_factor=beta_factor+gamma_fa(j*(d+2)+2)*last_term*norm_B/j
+                last_term=last_term*norm_B/j
+                if last_term<1e-15:
+                    break
+                beta_factor=beta_factor+gamma_fa(j*(d+2)+2)*last_term
             if m_pass_lowbound == False:
-                tr_first_term = tr_first_term * norm_B / (j + 1)
-                if i * (tr_first_term + lower_bound) > tol:
+                tr_first_term = tr_first_term * (norm_B / (j + 1))
+                if i *tr_first_term + lower_bound > tol:
                     continue
                 else:
                     R_m = residue_norm(j, norm_B, tr_first_term)
                     m_pass_lowbound = True
-            else:
-                tr_first_term = tr_first_term * norm_B / (j + 1)
-                R_m = R_m- tr_first_term
-            if weaker_error(beta_factor,R_m,i)>tol:
-                continue
-            else:
-                total_error=error(norm_B,j,i,d,R_m)
-                if total_error<tol:
-                    no_solution = False
-                    s=i
-                    m=j
-                    break
-        if no_solution == False:
-            break
+            if m_pass_lowbound == True:
+                if weaker_error(beta_factor,R_m,i)>tol:
+                    R_m = R_m - tr_first_term
+                    tr_first_term = tr_first_term * norm_B / (j + 1)
+
+                    continue
+                else:
+                    total_error=error(norm_B,j,i,d,R_m)
+                    R_m = R_m - tr_first_term
+                    tr_first_term = tr_first_term * norm_B / (j + 1)
+                    if total_error<tol:
+                        no_solution = False
+                        s=i
+                        m=j
+                        break
+
     if no_solution==False:
         return s,m
     if no_solution == True:
@@ -223,7 +231,7 @@ def get_norm(ts):
     tp=np.float64()
     anorm=[]
     for i in range(len(ts)):
-        HILBERT_SIZE=200
+        HILBERT_SIZE=20
         Q_dim=6
         g=0.1*2*np.pi
         anharmonicity =-0.225
@@ -238,7 +246,7 @@ def get_norm(ts):
         H_trans = 1 / 2 * anharmonicity * np.dot(np.dot(b_dag, b),np.dot(b_dag,b)-np.identity(Q_dim))
         H0=g*(np.kron(a_dag,b)+np.kron(a,b_dag))+np.kron(np.identity(HILBERT_SIZE),H_trans)
         H=ts[i]*csr_matrix(-1j*(H0+0.5*2*np.pi*(np.dot(B_dag,B)+B+B_dag+1j*(B-B_dag))))
-        anorm.append(norm_two(H))
+        anorm.append(_exact_inf_norm(H))
     return anorm
 def get_norm_der(ts):
     tp=np.float64()
@@ -260,7 +268,7 @@ def get_norm_der(ts):
         H0=g*(np.kron(a_dag,b)+np.kron(a,b_dag))+np.kron(np.identity(HILBERT_SIZE),H_trans)
         H=csr_matrix(-1j*(H0+0.5*2*np.pi*(np.dot(B_dag,B)+B+B_dag+1j*(B-B_dag))))
         A=ts[i]*block_fre(H,-1j*(A+A_dag))
-        anorm.append(norm_two(A))
+        anorm.append(_exact_inf_norm(A))
     return anorm
 theta_m=np.array([[8.70950435e-01, 2.48853043e+00, 4.02062662e+00, 5.51075280e+00,
         6.97775212e+00, 8.43027209e+00, 9.87290220e+00, 1.13089234e+01,
@@ -284,12 +292,11 @@ for j,_theta in enumerate(theta_m):
     for i, theta in enumerate(_theta):
         a[5*(i+1)] = theta
     theta_mm.append(a)
-tol = 1e-2
+tol = 1e-11
 dim=20
-t=1
+t=14
 H,vec=get_H(dim,np.float64)
-@profile
 def run():
     for i in range(500):
-        a,x1=expm_multiply(t*H, vec, theta_mm[0],tol)
+        a,x1=expm_yunwei(t*H,vec,5,tol)
 run()
