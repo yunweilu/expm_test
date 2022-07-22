@@ -287,7 +287,7 @@ for j,_theta in enumerate(theta_m):
 tol = 1e-2
 dim=20
 t=1
-H,vec=get_H(dim,np.float64)
+H,vec=get_H(dim,np.float64,)
 
 def run():
     for i in range(500):

@@ -4,7 +4,7 @@ ts = ["11","12","13","14"]
 
 for i in range(len(tol)):
     for j in range(len(ts)):
-        path = './state_propagator'
+        path = './gate_propagator'
         file1 = "yunwei_"+tol[i]+"_"+"t"+ts[j]+".py"
         file = "sci_" + tol[i] + "_" + "t" + ts[j]+".py"
         dir_list = os.listdir(path)

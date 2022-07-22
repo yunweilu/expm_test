@@ -154,6 +154,7 @@ def expm_yunwei(A, B,d, tol=None):
     #     d=len(A)
     norm_A = _exact_inf_norm(A)
     s,m=choose_ms(norm_A,d,tol)
+    print(s,m)
     F=B
     for i in range(int(s)):
         for j in range(m):
