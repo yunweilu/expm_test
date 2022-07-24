@@ -57,7 +57,7 @@ def residue_norm(m,norm_B,term):
     return R_m
 def choose_ms(norm_A,d,tol):
     no_solution=True
-    for i in range(1,int(np.floor(norm_A))):
+    for i in range(1,int(np.ceil(norm_A))):
         norm_B = norm_A / i
         l=int(np.ceil(norm_B))
         beta_factor,last_term=beta(norm_B,l,d)
@@ -274,9 +274,10 @@ for j,_theta in enumerate(theta_m):
     for i, theta in enumerate(_theta):
         a[5*(i+1)] = theta
     theta_mm.append(a)
-tol = 2**-24
-dim=7
-t=1
+tol = 1e-8
+dim=8
+t=0.04
 H,vec=get_H(dim,np.float64)
+print(_exact_inf_norm(t*H))
 for i in range(500):
-    a,x1=expm_yunwei(t*H, vec,tol)
+    a,x1=expm_yunwei(t*H, vec,8,tol)

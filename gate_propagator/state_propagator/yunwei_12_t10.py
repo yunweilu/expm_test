@@ -279,4 +279,4 @@ dim=7
 t=10
 H,vec=get_H(dim,np.float64)
 for i in range(500):
-    a,x1=expm_yunwei(t*H, vec,tol)
+    a,x1=expm_yunwei(t*H, vec,8,tol)
