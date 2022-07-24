@@ -298,5 +298,5 @@ t=11
 H,vec=get_auxiliary(dim,np.float64,1)
 def run():
     for i in range(500):
-        a,x1=expm_yunwei(t*H,vec,5,tol)
+        a,x1=expm_yunwei(t*H,vec,6,tol)
 run()
