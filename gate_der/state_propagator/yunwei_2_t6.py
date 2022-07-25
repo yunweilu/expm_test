@@ -18,6 +18,9 @@ def _exact_1_norm(A):
         return max(abs(A).sum(axis=0).flat)
     else:
         return np.linalg.norm(A, 1)
+def gamma_fa(n):
+    u = 1.11e-16
+    return n*u/(1-n*u)
 def beta(norm,m,n):
     beta=gamma_fa(m+1)
     r = 1

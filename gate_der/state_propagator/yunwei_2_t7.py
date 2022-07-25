@@ -18,6 +18,9 @@ def _exact_1_norm(A):
         return max(abs(A).sum(axis=0).flat)
     else:
         return np.linalg.norm(A, 1)
+def gamma_fa(n):
+    u = 1.11e-16
+    return n*u/(1-n*u)
 def beta(norm,m,n):
     beta=gamma_fa(m+1)
     r = 1
@@ -286,7 +289,7 @@ for j,_theta in enumerate(theta_m):
     theta_mm.append(a)
 tol = 1e-2
 dim=7
-t=8
+t=7
 H,vec=get_auxiliary(dim,np.float64,1)
 for i in range(500):
     a,x1=expm_yunwei(t*H, vec,9,tol)
